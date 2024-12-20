@@ -1,0 +1,105 @@
+---
+
+---
+<div id="animation-container" ></div>
+<script>
+    
+import { createSpheresOnSurface } from '../../../src/animations/modules/spheres-grid.js';
+import { addLights } from '../../../src/animations/modules/lights.js';
+import { createScene, createCamera, createRenderer } from '../../../src/animations/modules/scene-setup.js';
+import { StageManager } from '../../../src/animations/modules/stage-manager.js';
+
+import { store } from '../../../src/animations/modules/store.js';
+import { FPSCounter } from '../../../src/animations/utils/FPSCounter.js';
+// import { ArchCameraController } from '../../../src/animations/modules/arch-camera-controls.js';
+
+
+// Initialize Scene, Camera, Renderer
+const scene = createScene();
+const camera = createCamera();
+const renderer = createRenderer();
+const fpsCounter = new FPSCounter()
+
+// camera.setViewOffset(window.innerWidth, window.innerHeight, 0, 0, window.innerWidth, window.innerHeight);
+// camera.left = -800;
+// camera.right = 800;
+// camera.top = 600;
+// camera.bottom = -600;
+
+const MAXW = 800;
+const MAXH = 600;
+
+camera.updateProjectionMatrix();
+renderer.setSize(MAXW, MAXH);
+renderer.setPixelRatio(MAXW / MAXH);
+
+
+fpsCounter.addToContainer(document.getElementById('animation-container'));
+document.getElementById('animation-container')!.appendChild(renderer.domElement);
+
+// initContainerScrollHandler('animation-container');
+
+
+
+// Add lights to the scene
+addLights(scene);
+
+const GRID_HEIGHT = 71;
+const GRID_WIDTH = 70;
+
+const { spheres, spheresData } = createSpheresOnSurface(GRID_HEIGHT, GRID_WIDTH);
+console.log("spheresData", spheresData);
+
+
+store.setScene(scene);
+store.setCamera(camera);
+store.setRenderer(renderer);
+
+// Replace the old guiController with:
+// const archCameraController = new ArchCameraController();
+
+
+
+const stageManager = new StageManager(spheres,  spheresData);
+
+scene.add(spheres);
+
+
+
+
+
+
+let lastTime = 0;
+
+function animate(currentTime) {
+    requestAnimationFrame(animate);
+    const deltaTime = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
+    stageManager.update(deltaTime);
+
+    fpsCounter.update();
+
+    // archCameraController.render();
+
+    renderer.render(scene, camera);
+}
+
+// window.addEventListener('resize', () => {
+//     camera.left = -window.innerWidth;
+//     camera.right = window.innerWidth;
+//     camera.top = window.innerHeight;
+//     camera.bottom = -window.innerHeight;
+//     camera.updateProjectionMatrix();
+//     renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+//     renderer.setPixelRatio(window.innerWidth / window.innerHeight);
+// });
+
+
+animate(0);
+</script>
+<!-- <style>
+    #animation-container {
+        background-image: linear-gradient(red, yellow);
+    }
+</style> -->

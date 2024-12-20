@@ -1,8 +1,9 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: Recombo.AI
+  site: 'https://recombo.ai'
   base: '/'
   trailingSlash: false
+  logoText: 'Recombo.AI'
 
   googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
 
