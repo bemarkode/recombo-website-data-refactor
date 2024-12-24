@@ -67,7 +67,7 @@ export class Stage5 {
 
 
         this.visualization.applyHeightColors();
-        store.setFlowSpeed(18/4900);
+        store.setFlowSpeed(6/4900);
         
         this.update();
         console.log('Stage5: Transition complete');
@@ -93,6 +93,7 @@ export class Stage5 {
         console.log('Stage5: Preparing transition to Stage 6');
         // Perform any necessary cleanup or preparation
         this.isTransitioning = true;
+        await this.logic.resetHeights();
         console.log('Stage5: Ready for Stage 6');
     }
 
@@ -175,8 +176,12 @@ export class Stage5 {
         this.spheresData.forEach(element => {
             const distance = Math.sqrt(Math.pow(element.realRow - rootCauseX, 2) + Math.pow(element.col - rootCauseY, 2));
             const delay = .007 * distance + 0.15;
-            gsap.to(element.position, { z: 0, duration: 0.5, delay: delay, ease: "power2.inOut" });
-            gsap.to(element.scale, { x: 1, y: 1, z: 1, duration: 0.5, delay: delay, ease: "power2.inOut" });
+            let moveDownTween = gsap.to(element.position, { z: 0, duration: 0.5, delay: delay, ease: "power2.inOut" });
+            let scaleDownTween = gsap.to(element.scale, { x: 1, y: 1, z: 1, duration: 0.5, delay: delay, ease: "power2.inOut" });
+            if (this.isTransitioning){
+                moveDownTween.kill();
+                scaleDownTween.kill();
+            }
         });
 
     }
@@ -329,6 +334,16 @@ export class Stage5 {
                 duration: 0.1,
                 delay,
                 ease: "power2.inOut",
+                onUpdate: () => {
+                    if (this.isTransitioning) {
+                        gsap.killTweensOf(element, "scale");
+                    }
+                },
+                onComplete: () => {
+                    if (this.isTransitioning) {
+                        gsap.killTweensOf(element, "scale");
+                    }
+                },
             });
         });
     }

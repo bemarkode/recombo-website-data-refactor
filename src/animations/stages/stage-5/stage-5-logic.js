@@ -21,7 +21,7 @@ export class Stage5Logic {
         this.heightController.generateHeightDisturbanceInstantly(row, col);
     }
     
-    resetHeights() {
+    async resetHeights() {
         this.heightController.resetHeights();
     }
 }

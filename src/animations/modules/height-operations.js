@@ -137,7 +137,7 @@ export class HeightController {
     }
 
     async resetHeights() {
-        this.spheresData.forEach(sphere => {
+        await this.spheresData.forEach(sphere => {
             if (sphere.height) {
                 gsap.to(sphere.position, {
                     z: 0,
