@@ -72,6 +72,8 @@ export class Stage4 {
     async transitionToNext() {
         console.log('Stage4: Preparing to transition to next stage');
         this.isTransitioning = true;
+        this.logic.resetHeights();
+        
         // this.control.update()
         // Perform any necessary cleanup or preparation
         console.log('Stage4: Ready for next stage');

@@ -5,8 +5,7 @@ import { gsap } from 'gsap';
 export class SankeyController {
     constructor(spheresData) {
         this.spheresData = spheresData;
-        this.spheresData[0].rows = spheresData[0].totalRows;
-        this.spheresData[0].cols = spheresData[0].totalCols;
+
 
         // Define group sizes and colors
         this.groups = [
@@ -40,7 +39,7 @@ export class SankeyController {
         let currentY = 0;
         return this.groups.map(group => {
             const endpoint = currentY;
-            // Add space for the group (maintaining original spacing between rows)
+            // Add space for the group (maintaining original spacing between height)
             currentY += (group.size - 1) * this.originalYSpacing;
             // Add gap to next group
             currentY += gap;
@@ -88,8 +87,8 @@ export class SankeyController {
 
     transformToSankeyOriginalSpacing() {
         this.spheresData.forEach((sphere, index) => {
-            const col = Math.floor(index / this.spheresData[0].cols);
-            const row = index % this.spheresData[0].cols;
+            const col = Math.floor(index / this.spheresData[0].width);
+            const row = index % this.spheresData[0].width;
             const groupIndex = this.getGroupForRow(row);
             
             if (groupIndex !== -1) {
@@ -104,7 +103,7 @@ export class SankeyController {
                 const endY = groupBaseY + (rowWithinGroup * this.originalYSpacing);
                 
                 // Calculate progress through columns
-                const progress = col / (this.spheresData[0].cols - 1);
+                const progress = col / (this.spheresData[0].width - 1);
                 
                 // Calculate new Y position using S-curve
                 const newY = this.calculateSCurvePosition(progress, startY, endY);
@@ -120,7 +119,7 @@ export class SankeyController {
 
             }
         });
-        this.spheresData.filter(sphere => sphere.row === this.spheresData[0].rows - 1).forEach(sphere => sphere.scale.set(0, 0, 0));
+        this.spheresData.filter(sphere => sphere.row === this.spheresData[0].height - 1).forEach(sphere => sphere.scale.set(0, 0, 0));
     }
 
     transformToSankeyAdjustedSpacing() {
@@ -128,8 +127,8 @@ export class SankeyController {
         // const flowWidths = this.groups.map(group => (group.size - 1) * this.originalYSpacing);
         
         this.spheresData.forEach((sphere, index) => {
-            const col = Math.floor(index / this.spheresData[0].cols);
-            const row = index % this.spheresData[0].cols;
+            const col = Math.floor(index / this.spheresData[0].width);
+            const row = index % this.spheresData[0].width;
             const groupIndex = this.getGroupForRow(row);
             
             if (groupIndex !== -1) {
@@ -144,7 +143,7 @@ export class SankeyController {
                 const endY = groupBaseY + (rowWithinGroup * this.originalYSpacing);
                 
                 // Calculate progress through columns
-                const progress = col / (this.spheresData[0].cols - 1);
+                const progress = col / (this.spheresData[0].width - 1);
                 
                 // Calculate new Y position using S-curve
                 const newY = this.calculateSCurvePosition(progress, startY, endY);

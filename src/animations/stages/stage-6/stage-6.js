@@ -1,7 +1,7 @@
 import { store } from '../../modules/store.js';
 
 import { stageConfigs } from '../../modules/stage-config.js';
-// import * as SphereOps from '../../modules/sphere-operations.js';
+import * as SphereOps from '../../modules/sphere-operations.js';
 import { HeightController } from '../../modules/height-operations.js';
 import { SankeyController } from '~/animations/modules/sankey-controller.js';
 // import { gsap } from 'gsap';
@@ -30,12 +30,18 @@ export class Stage6 {
             z: 0
         };
         this.heightController = new HeightController(spheresData);
-        this.isTransitioning = false;
+        this.isTransitioning = true;
         this.sankeyController = new SankeyController(spheresData);
     }
 
     transitionFromPrevious() {
         console.log("HELLO FROM TRANSITION TO 6");
+        this.heightController.resetHeights();
+        this.spheresData.forEach(element => {
+            element.scale.set(1,1,1)
+            SphereOps.updateSphereColorByHeight(element, this.spheres, element.index)
+            this.spheres.instanceColor.needsUpdate = true
+        });
         this.isTransitioning = false;
         
     }
@@ -53,7 +59,8 @@ export class Stage6 {
     }
     update() {
         if (this.isTransitioning) return;
-        this.heightController.resetHeights();
+
+
         this.sankeyController.transformToSankeyOriginalSpacing();
     }
 }

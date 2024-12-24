@@ -18,16 +18,11 @@ export const createCamera = () => {
 };
 
 export const createRenderer = () => {
-  const renderer = new THREE.WebGLRenderer({
-    
+  const renderer = new THREE.WebGLRenderer({ 
     antialias: true,
     alpha: true,
     powerPreference: "low-power",
     outputColorSpace: "srgb-linear",
-    
-
-    
-    
   });
   renderer.setSize(800, 600);
   renderer.setClearColor(0xbbcc00, 0.25);

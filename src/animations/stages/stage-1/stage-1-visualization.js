@@ -106,6 +106,28 @@ export class Stage1Visualization {
         });
     }
 
+
+    // updateAllSphereColors() {
+    //     this.spheresData.forEach((sphere, i) => this.updateSphereColor(sphere, i));
+    // }
+
+
+
+    // updateSphereMatrix(sphere, index) {
+    //     SphereOps.updateSphereMatrix(sphere, this.spheres, index);
+    // }
+
+    // async animateSpheresUp(sphereIndices) {
+    //     const animations = sphereIndices.map(index => this.animateSphereUp(index));
+    //     await Promise.all(animations);
+    // }
+
+    // // updateSphereAfterReset(sphere, index) {
+    // //     this.updateSphereColor(sphere, index);
+    // //     this.updateSphereMatrix(sphere, index);
+    // // }
+    
+    
     // updateAllSphereColors() {
     //     this.spheresData.forEach((sphere, i) => this.updateSphereColor(sphere, i));
     // }
@@ -129,7 +151,6 @@ export class Stage1Visualization {
     updateVisuals() {
         this.spheresData.forEach((sphere, index) => {
             SphereOps.updateSphereColor(sphere, this.spheres, index);
-            // this.updateSphereMatrix(sphere, index);
         });
     }
 }

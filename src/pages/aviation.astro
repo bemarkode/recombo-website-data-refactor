@@ -2,6 +2,10 @@
 import PageLayout from "~/layouts/PageLayout.astro";
 // import Hero from "~/components/widgets/Hero.astro";
 import Content from "~/components/widgets/Content.astro";
+// import Image from "astro/components/Image.astro";
+
+
+
 ---
 
 <PageLayout>
@@ -14,15 +18,20 @@ import Content from "~/components/widgets/Content.astro";
   bg="<div class='absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900 to-gray-800 opacity-10 pointer-events-none'></div>"
     title="Inspection/Audit readiness"
     content="Streamline your preparation for FAA inspections and client audits with automated reviews of 100% of your quality and safety records. Identify potential gaps in maintenance protocols, component traceability, and operational safety standards. Designed for both suppliers and operators, our solution supports audit readiness and helps demonstrate your commitment to quality and compliance."
-  />
+    image={{src:"~/assets/images/inspection-audit-readiness-1.jpg", alt:"none"}}
+    />
+
   <Content
     isReversed
     title="Equipment Failure Mode Prediction"
     content="Gain deeper insights into component performance with automated identification of frequently failing parts and their potential root causes. Detect patterns such as cluster or cascading failures to address issues before they escalate. Our solution supports the development of enhanced inspection schedules and proactive replacement strategies, helping to reduce unplanned downtime and maintain operational efficiency."
-  />
-  <Content
+    image={{src:"~/assets/images/equipment-failure-prediction.png", alt:"none"}}
+    />
+    <Content
     
     title="Automation of Quality Reviews"
     content="Simplify the tedious process of manual record reviews for SOP and manual concordance. Automate these tasks to free up valuable time for critical activities like supervision, training, and strategic planning. Enhance safety and quality control measures by shifting focus from routine checks to proactive improvements."
+    image={{src:"~/assets/images/quality-review-automation.png", alt:"none"}}
+    
   />
 </PageLayout>

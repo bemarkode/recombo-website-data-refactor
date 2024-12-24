@@ -119,7 +119,7 @@ export class Stage3 {
                     duration: 0.3,
                     ease: "elastic.out(1, 0.3)",
                     onUpdate: () => {
-                        this.updateSphereMatrix(sphere, index);
+
                     },
                     onComplete: () => {
                         sphere.isAnimating = false;
@@ -188,13 +188,13 @@ export class Stage3 {
         const sphere = this.spheresData[index];
         sphere.scale.set(1.5, 1.5, 1.5);
         this.spheres.setColorAt(index, new THREE.Color(0x00ffff));
-        this.updateSphereMatrix(sphere, index);
+
     }
 
     resetSphereAppearance(index) {
         const sphere = this.spheresData[index];
         sphere.scale.set(1, 1, 1);
-        this.updateSphereMatrix(sphere, index);
+
         this.updateSphereColor(sphere, index);
     }
 
@@ -202,7 +202,4 @@ export class Stage3 {
         SphereOps.updateSphereColor(sphere, this.spheres, index);
     }
 
-    updateSphereMatrix(sphere, index) {
-        SphereOps.updateSphereMatrix(sphere, this.spheres, index);
-    }
 }

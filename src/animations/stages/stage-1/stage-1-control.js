@@ -1,7 +1,6 @@
 import { store } from '../../modules/store.js';
 import * as SphereOps from '../../modules/sphere-operations.js';
 
-
 export class Stage1Control {
     constructor(spheres, spheresData,logic, visualization, stageObserver) {
         this.stageObserver = stageObserver;
@@ -25,17 +24,11 @@ export class Stage1Control {
                 SphereOps.updateSpherePosition(sphere, flowSpeed);
     
                 if (SphereOps.isSphereAtReset(sphere)) {
-                    // const resetSphere = SphereOps.resetSphere(sphere, index, this.spheresData);
-                    // this.visualization.updateSphereAfterReset(resetSphere, index);
                     SphereOps.resetSphere(sphere, index, this.spheresData);
                 }
             }
-    
-
-            // this.visualization.updateSphereMatrix(sphere, index);
         });
     
-        // this.spheres.instanceMatrix.needsUpdate = true;
         this.visualization.updateVisuals();
     }
 
@@ -88,11 +81,8 @@ async startScanning(sphereIndex) {
 
     async repairSpheres(sphereIndices) {
         
-        
         // Repair the spheres in the logic
         this.logic.repair(sphereIndices);
-
-
 
         // Add a small delay to make the color change visible. Later animate
         await new Promise(resolve => setTimeout(resolve, 200));

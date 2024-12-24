@@ -13,19 +13,17 @@ export class Stage4Visualization {
     updateVisuals() {
         this.spheresData.forEach((sphere, index) => {
             this.updateSphereColor(sphere, index);
-            this.updateSphereMatrix(sphere, index);
+
         });
-        this.spheres.instanceMatrix.needsUpdate = true;
-        this.spheres.instanceColor.needsUpdate = true;
+
     }
 
     updateSphereColor(sphere, index) {
         SphereOps.updateSphereColorByHeight(sphere, this.spheres, index);
+        this.spheres.instanceColor.needsUpdate = true;
     }
 
-    updateSphereMatrix(sphere, index) {
-        SphereOps.updateSphereMatrix(sphere, this.spheres, index);
-    }
+
 
     applyHeightColors() {
         this.spheresData.forEach((sphere, index) => {

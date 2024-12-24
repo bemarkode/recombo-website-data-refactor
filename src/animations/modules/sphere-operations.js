@@ -6,10 +6,7 @@ import { ColorGradient } from './color-gradient.js';
 export function resetSphere(sphere, index, spheresData) {
     sphere.status = Math.random() < 0.75 ? 'good' : 'bad';
     sphere.scanned = false;
-
     sphere.highlightedIssue = false;
-    
-
     sphere.row = Math.floor(index / spheresData.width);
     sphere.col = index % spheresData.width;
     if (sphere.row !== 70) {
@@ -20,7 +17,6 @@ export function resetSphere(sphere, index, spheresData) {
 
     return sphere;
 }
-
 
 export function updateSpherePosition(sphere, flowSpeed) {
     sphere.v = (sphere.v - flowSpeed + 1) % 1;
@@ -38,6 +34,7 @@ export function updateSpherePosition(sphere, flowSpeed) {
 
     sphere.realRow = Math.floor(sphere.v * 70);
     sphere.realIndex = getIndexFromCoordinates(sphere.realRow, sphere.col, 70)
+
     return sphere;
 }
 
@@ -68,6 +65,7 @@ export function getSphereColor(sphere) {
     } else {
         color.setHex(0xff0000);
     }
+    
     return color;
 }
 
@@ -75,18 +73,6 @@ export function updateSphereColor(sphere, instancedMesh, index) {
     const color = getSphereColor(sphere);
     instancedMesh.setColorAt(index, color);
     instancedMesh.instanceColor.needsUpdate = true;
-}
-
-export function updateSphereMatrix(sphere, instancedMesh, index) {
-    const matrix = new THREE.Matrix4();
-    const position = sphere.position.clone();
-    if (sphere.height !== undefined) {
-        position.z += sphere.height;
-    }
-    const scale = sphere.visible ? (sphere.row !== 70 ? sphere.scale : new THREE.Vector3(0, 0, 0)) : new THREE.Vector3(0, 0, 0);
-    matrix.compose(position, sphere.rotation, scale);
-    instancedMesh.setMatrixAt(index, matrix);
-    instancedMesh.instanceMatrix.needsUpdate = true;
 }
 
 // Helper function to get grid coordinates from index
@@ -103,7 +89,6 @@ export function getIndexFromCoordinates(row, col, width) {
 }
 
 export function getVisibleSpheresArray(spheresData) {
-
 
     // Filter visible spheres and calculate normalized positions
     const visibleSpheres = spheresData.filter(sphere => sphere.visible)
@@ -123,8 +108,6 @@ export function getVisibleSpheresArray(spheresData) {
         return a.row - b.row;
     });
 
-
-
     return { spheres: visibleSpheres };
 }
 
@@ -133,7 +116,6 @@ export function updateSphereColorByHeight(sphere, spheres, index) {
     const height = sphere.height || 0;
     const minHeight = 0;
     const maxHeight = 400;
-    
     const color = colorGradient.mapHeightToColor(height, minHeight, maxHeight);
     spheres.setColorAt(index, color);
 }

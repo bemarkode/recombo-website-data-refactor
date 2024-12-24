@@ -72,7 +72,6 @@ export class Stage2Visualization {
                 duration: 0.5,
                 ease: "elastic.out(1, 0.3)",
                 onUpdate: () => {
-                    // this.updateSphereMatrix(sphere, sphereIndex);
                     this.updateSphereColor(sphere, sphereIndex);
                 },
                 onComplete: () => {
@@ -80,8 +79,6 @@ export class Stage2Visualization {
                     resolve();
                 }
             });
-
-
         });
     }
 
@@ -128,10 +125,6 @@ export class Stage2Visualization {
         SphereOps.updateSphereColor(sphere, this.spheres, index);
     }
 
-    updateSphereMatrix(sphere, index) {
-        SphereOps.updateSphereMatrix(sphere, this.spheres, index);
-    }
-
     async animateSpheresUp(sphereIndices) {
         const animations = sphereIndices.map(index => this.animateSphereUp(index));
         await Promise.all(animations);
@@ -140,9 +133,6 @@ export class Stage2Visualization {
     updateVisuals() {
         this.spheresData.forEach((sphere, index) => {
             this.updateSphereColor(sphere, index);
-            // this.updateSphereMatrix(sphere, index);
         });
     }
-
-
 }

@@ -64,17 +64,12 @@ export class HeightController {
                     sphere.height = finalHeight;
                     gsap.to(sphere.position, {
                         z: sphere.position.z + finalHeight,
-                        duration: 1,
+                        duration: 0.5,
                         ease: "power2.out"
-                    });
-                    
-                    
-                }
-                
+                    });   
+                }       
             }
         }
-        
-        
     }
     generateHeightDisturbanceInstantly(centerRow, centerCol) {
         
@@ -93,10 +88,12 @@ export class HeightController {
                 const index = row * this.width + col;
                 const sphere = this.spheresData[index];
 
+                const realSphere = this.spheresData[sphere.realIndex]
+
                 // Calculate distances in grid space
                 const distRow = Math.min(
-                    Math.abs(row - centerRow),
-                    this.height - Math.abs(row - centerRow)
+                    Math.abs(realSphere.row - centerRow),
+                    this.height - Math.abs(realSphere.row - centerRow)
                 );
                 const distCol = Math.min(
                     Math.abs(col - centerCol),
@@ -126,21 +123,17 @@ export class HeightController {
                 const finalHeight = height + randomHeight;
                 console.log("HELLO");
                 // Apply height to sphere
+                // sphere.position.z = finalHeight
                 if (finalHeight > 0) {
                     sphere.height = finalHeight;
                     gsap.to(sphere.position, {
                         z: sphere.position.z + finalHeight,
                         duration: 0.5,
                         ease: "power2.out"
-                    });
-                    
-                    
-                }
-                
+                    });   
+                }       
             }
         }
-        
-        
     }
 
     async resetHeights() {

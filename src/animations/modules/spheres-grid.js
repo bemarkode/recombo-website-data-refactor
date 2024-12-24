@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 
 export function createSpheresOnSurface(gridHeight, gridWidth) {
 
-    const sphereGeometry = new THREE.SphereGeometry(10, 8, 8);
+    const sphereGeometry = new THREE.SphereGeometry(10, 24, 24);
     const errorGeometry = new THREE.SphereGeometry(25, 8, 8);
     const sphereMaterial = new THREE.MeshStandardMaterial({
         vertexColors: false,
