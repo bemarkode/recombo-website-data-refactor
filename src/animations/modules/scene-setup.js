@@ -25,7 +25,7 @@ export const createRenderer = () => {
     outputColorSpace: "srgb-linear",
   });
   renderer.setSize(800, 600);
-  renderer.setClearColor(0xbbcc00, 0.25);
+  renderer.setClearColor(0x000000, 0);
   renderer.localClippingEnabled = true;
   return renderer;
 };

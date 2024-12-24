@@ -4,6 +4,7 @@ import { Stage3 } from '../stages/stage-3/stage-3.js';
 import { Stage4 } from '../stages/stage-4/stage-4.js';
 import { Stage5 } from '../stages/stage-5/stage-5.js';
 import { Stage6 } from '../stages/stage-6/stage-6.js';
+import { Stage7 } from '../stages/stage-7/stage-7.js';
 import { StageObserver } from './stage-observer.js';
 import { visibilityManager } from './visibility-manager.js';
 import { gsap } from 'gsap/dist/gsap';
@@ -23,6 +24,7 @@ export class StageManager {
             new Stage4(spheres, spheresData, this.stageObserver),
             new Stage5(spheres, spheresData, this.stageObserver),
             new Stage6(spheres, spheresData, this.stageObserver),
+            new Stage7(spheres, spheresData, this.stageObserver),
         ];
         this.stageObserver.updateStage(this.currentStageIndex);
         this.setupScrollTrigger();
@@ -37,7 +39,7 @@ export class StageManager {
             scrollTrigger: {
                 trigger: "#animation-container",
                 start: "top-=70px top",
-                end: `+=${6 * 100}%`,
+                end: `+=${7 * 100}%`,
                 pin: true,
                 fastScrollEnd: true,
                 preventOverlaps: true,

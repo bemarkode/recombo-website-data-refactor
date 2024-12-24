@@ -5,6 +5,7 @@ import * as SphereOps from '../../modules/sphere-operations.js';
 import { HeightController } from '../../modules/height-operations.js';
 import { SankeyController } from '~/animations/modules/sankey-controller.js';
 import { gsap } from 'gsap';
+// import { surface } from '~/animations/modules/surface.js';
 
 export class Stage6 {
     constructor(spheres, spheresData, stageObserver) {
@@ -64,9 +65,9 @@ async spreadRisk() {
 
     this.spheresData.forEach(element => {
         const randomNumber = Math.random();
-        let scale = 1;
+
         let color = new THREE.Color(0x00ff00); // Default to green (no risk)
-        let zPosition = 0;
+
 
         if (randomNumber < 0.5) {
             element.risk = 'none';
@@ -120,6 +121,9 @@ async spreadRisk() {
     }
     
     async transitionFromNext() {
+        this.spheresData.forEach(element => {
+            SphereOps.resetSphere(element, element.index, this.spheresData);
+        })
         this.isTransitioning = false;
     }
     update() {

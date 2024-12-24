@@ -18,6 +18,9 @@ export const stageConfigs = {
     },
     stage6: {
         visibilityRange: { u: { min: 0, max: 1 }, v: { min: 0, max: 1 } }
+    },
+    stage7: {
+        visibilityRange: { u: { min: 0, max: 1 }, v: { min: 0, max: 1 } }
     }
 };
 
