@@ -81,6 +81,8 @@ export class Stage4 {
 
     async transitionFromNext() {
         this.control.state = 0;
+        // this.spheres = store.getSpheres()
+        // this.spheresData = store.getSpheresData()
         this.isTransitioning = false;
         console.log('Stage4: Starting transition from next stage');
         // Perform any necessary cleanup or preparation

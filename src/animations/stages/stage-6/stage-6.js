@@ -5,7 +5,7 @@ import * as SphereOps from '../../modules/sphere-operations.js';
 import { HeightController } from '../../modules/height-operations.js';
 import { SankeyController } from '~/animations/modules/sankey-controller.js';
 import { gsap } from 'gsap';
-// import { surface } from '~/animations/modules/surface.js';
+import { surface } from '~/animations/modules/surface.js';
 
 export class Stage6 {
     constructor(spheres, spheresData, stageObserver) {
@@ -32,7 +32,7 @@ export class Stage6 {
         };
         this.heightController = new HeightController(spheresData);
         this.isTransitioning = true;
-        this.sankeyController = new SankeyController(spheresData);
+        // this.sankeyController = new SankeyController(spheresData);
 
     }
 
@@ -113,6 +113,19 @@ async spreadRisk() {
 
 
     async transitionToPrevious() {
+        this.spheresData.forEach(sphere => {
+            sphere.v = sphere.row / 70
+            sphere.u = sphere.col / 70
+            gsap.to(sphere.position,
+                {
+                    z: 0, 
+                    duration: 0.5, 
+                    ease: "power2.inOut" 
+                }
+            )
+        })
+        
+
         this.isTransitioning = true;
     }
 
@@ -121,9 +134,56 @@ async spreadRisk() {
     }
     
     async transitionFromNext() {
-        this.spheresData.forEach(element => {
-            SphereOps.resetSphere(element, element.index, this.spheresData);
-        })
+        // const matrix = new THREE.Matrix4();
+        // const position = new THREE.Vector3();
+        // const gridWidth = this.spheresData.width
+        // const gridHeight = this.spheresData.height
+        // const totalSpheres = gridHeight * gridWidth
+        // for (let i = 0; i < totalSpheres; i++) {
+        //     const row = Math.floor(i / gridWidth);
+        //     const col = i % gridWidth;
+            
+        //     // Calculate UV coordinates
+        //     const u = col / (gridWidth - 1);
+        //     const v = row / (gridHeight - 1);
+    
+        //     const realIndex =  i
+        //     const realRow = Math.floor(realIndex / gridWidth)
+            
+
+        //     surface.getPoint(u, v, position)
+        //     matrix.compose(position, new THREE.Quaternion(), new THREE.Vector3(1,1,1))
+        //     this.spheres.setMatrixAt(i, matrix)
+
+        //     const status = Math.random() < 0.75 ? 'good' : 'bad';
+                    
+        //             // Store grid coordinates with sphere data
+        //         if (row !== 70) {
+        //             this.spheresData.push({
+        //                 index: i,
+        //                 row: row,
+        //                 col: col,
+        //                 u: u,
+        //                 v: v,
+        //                 status: status,
+        //                 visible: true,
+        //                 position: position.clone(),
+        //                 color: new THREE.Color(0xffffff),
+        //                 isAnimating: false,
+        //                 scale: new THREE.Vector3(1, 1, 1),
+        //                 rotation: new THREE.Quaternion(),
+        //                 scanned: false,
+        //                 realIndex: realIndex,
+        //                 realRow: realRow
+        
+        
+        //             });
+        //         }
+        //         this.spheres.instanceMatrix.needsUpdate = true;
+            
+        // }
+        
+        store.setFlowSpeed(3/4900);
         this.isTransitioning = false;
     }
     update() {

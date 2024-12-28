@@ -1,9 +1,32 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export const createScene = () => {
   const scene = new THREE.Scene();
   // scene.background = new THREE.Color(0xffffff);  // White background
-  return scene;
+
+  let my_model;
+  let gltfLoader = new GLTFLoader()
+
+  
+  gltfLoader.load(
+      '3d/360.glb',
+      (gltf) =>
+      {
+          my_model = gltf.scene;
+
+          my_model.rotation.set(Math.PI, 0, 0);
+          my_model.material = new THREE.MeshStandardMaterial({
+              color: 0xffffff,
+              transparent: true,
+              opacity: 0
+          })
+          my_model.name = '360 Model';
+          my_model.visible = false
+          scene.add(my_model)
+      }
+  )
+  return { scene };
 };
 
 export const createCamera = () => {
@@ -29,3 +52,4 @@ export const createRenderer = () => {
   renderer.localClippingEnabled = true;
   return renderer;
 };
+

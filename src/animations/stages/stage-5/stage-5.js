@@ -99,6 +99,10 @@ export class Stage5 {
 
     async transitionFromNext() {
         console.log('Stage5: Transitioning from Stage 6');
+        this.rootCauseX = 15
+        this.rootCauseY = 25
+        // this.spheres = store.getSpheres();
+        // this.spheresData = store.getSpheresData();
         // Perform any necessary cleanup or preparation
         this.isTransitioning = false;
         console.log('Stage5: Transition from Stage 6 complete');

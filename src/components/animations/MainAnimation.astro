@@ -3,19 +3,22 @@
 ---
 <div id="animation-container" ></div>
 <script>
+
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
     
 import { createSpheresOnSurface } from '../../../src/animations/modules/spheres-grid.js';
 import { addLights } from '../../../src/animations/modules/lights.js';
 import { createScene, createCamera, createRenderer } from '../../../src/animations/modules/scene-setup.js';
 import { StageManager } from '../../../src/animations/modules/stage-manager.js';
-
+import * as THREE from 'three'
 import { store } from '../../../src/animations/modules/store.js';
 import { FPSCounter } from '../../../src/animations/utils/FPSCounter.js';
 // import { ArchCameraController } from '../../../src/animations/modules/arch-camera-controls.js';
 
 
 // Initialize Scene, Camera, Renderer
-const scene = createScene();
+const { scene } = createScene();
+console.log(scene);
 const camera = createCamera();
 const renderer = createRenderer();
 const fpsCounter = new FPSCounter()
@@ -40,7 +43,6 @@ document.getElementById('animation-container')!.appendChild(renderer.domElement)
 // initContainerScrollHandler('animation-container');
 
 
-
 // Add lights to the scene
 addLights(scene);
 
@@ -54,6 +56,9 @@ console.log("spheresData", spheresData);
 store.setScene(scene);
 store.setCamera(camera);
 store.setRenderer(renderer);
+const model = scene.getObjectByName('360 Model');
+store.setModel(model);
+// model.material.opacity = 0;
 
 // Replace the old guiController with:
 // const archCameraController = new ArchCameraController();
