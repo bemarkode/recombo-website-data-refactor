@@ -17,12 +17,19 @@ import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehype
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Update this to your repository name
+const repoName = 'recombo-website-data-refactor'; // Replace with your GitHub repository name
+
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
 export default defineConfig({
+  // Static output for GitHub Pages
   output: 'static',
+
+  // Base path for GitHub Pages
+  base: `/${repoName}/`, // Ensure this matches your GitHub repository name
 
   integrations: [
     tailwind({
@@ -47,12 +54,14 @@ export default defineConfig({
       },
     }),
 
+    // Optional external scripts handling
     ...whenExternalScripts(() =>
       partytown({
         config: { forward: ['dataLayer.push'] },
       })
     ),
 
+    // Enable compression for assets
     compress({
       CSS: true,
       HTML: {
@@ -66,20 +75,24 @@ export default defineConfig({
       Logger: 1,
     }),
 
+    // AstroWind integration
     astrowind({
       config: './src/config.yaml',
     }),
   ],
 
+  // Configure remote image domains
   image: {
     domains: ['cdn.pixabay.com'],
   },
 
+  // Markdown plugins
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
     rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
   },
 
+  // Vite configuration for module aliasing
   vite: {
     resolve: {
       alias: {
